@@ -5,6 +5,7 @@ import logging
 def smart_decorator(decorator):
 
     def decorator_proxy(func=None, **kwargs):
+        print(func)
         if func is not None:
             return decorator(func=func, **kwargs)
 
@@ -33,9 +34,26 @@ def log_slow_call(func, threshold=1):
     return proxy
 
 
-@log_slow_call
+# @log_slow_call
+# def sleep_seconds(seconds):
+#     time.sleep(seconds)
+
+# smart_decorator(log_slow_call)(func=sleep_seconds)(seconds)
+
+
+# @log_slow_call()
+# def sleep_seconds(seconds):
+#     time.sleep(seconds)
+
+# smart_decorator(log_slow_call)(func=None)(sleep_seconds)(seconds)
+
+
+@log_slow_call(threshold=2)
 def sleep_seconds(seconds):
     time.sleep(seconds)
+
+# smart_decorator(log_slow_call)(func=None, threshold=2)(sleep_seconds)(seconds)
+
 
 
 if __name__ == "__main__":
